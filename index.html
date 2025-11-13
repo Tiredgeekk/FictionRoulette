@@ -3,74 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flash Fiction Roulette 🎲</title>
+<title>Flash Fiction Roulette 📚</title>
 <style>
   body {
-    background-color: #faf5ff;
-    font-family: 'Poppins', sans-serif;
+    background-color: #f9f6f4;
+    font-family: 'Georgia', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    color: #2d2d2d;
+    color: #3b1f2b;
   }
+
   h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 2.4rem;
+    color: #6b0f1a;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px #b6b6b6;
   }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #7c7c7c;
+    margin-bottom: 1.5rem;
+  }
+
   .results {
     background: #fff;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 2px solid #b7b7b7;
+    padding: 1.5rem 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 15px rgba(107, 15, 26, 0.2);
     text-align: center;
-    width: 80%;
-    max-width: 400px;
+    width: 85%;
+    max-width: 450px;
     transition: all 0.3s ease;
+    position: relative;
   }
-  button {
-    background-color: #8b5cf6;
-    color: #fff;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 1.5rem;
-    transition: background-color 0.3s;
+
+  .results::before {
+    content: "✦";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #6b0f1a;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
   }
-  button:hover {
-    background-color: #7c3aed;
-  }
+
   p {
     font-size: 1.2rem;
-    margin: 0.3rem 0;
+    margin: 0.6rem 0;
+  }
+
+  strong {
+    color: #6b0f1a;
+  }
+
+  button {
+    background-color: #6b0f1a;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    box-shadow: 0 3px 10px rgba(107, 15, 26, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #8c2234;
+    transform: translateY(-2px);
+  }
+
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.98);}
+    to {opacity: 1; transform: scale(1);}
+  }
+
+  footer {
+    margin-top: 2rem;
+    color: #999;
+    font-size: 0.9rem;
+    font-style: italic;
   }
 </style>
 </head>
 <body>
 
-<h1>Flash Fiction Roulette 🎲</h1>
-<div class="results">
+<h1>Flash Fiction Roulette 📚</h1>
+<p class="subtitle">Write your story before the clock runs out!</p>
+
+<div class="results" id="resultsBox">
   <p><strong>Genre:</strong> <span id="genre">—</span></p>
   <p><strong>Object:</strong> <span id="object">—</span></p>
   <p><strong>Emotion:</strong> <span id="emotion">—</span></p>
 </div>
-<button onclick="generate()">Roll!</button>
+
+<button onclick="generate()">🎲 Roll Prompts</button>
+
+<footer>Lit Club Edition • Burgundy & Silver ✧</footer>
 
 <script>
   const genres = [
     "Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror",
     "Comedy", "Historical", "Slice of Life", "Adventure", "Dystopian",
-    "Magical Realism", "Mythology", "Cyberpunk", "Fairy Tale", "Drama"
+    "Mythology", "Cyberpunk", "Fairy Tale", "Drama", "Gothic"
   ];
 
   const objects = [
     "Broken Clock", "Lost Letter", "Crystal Ball", "Map with No North",
     "Pocket Watch", "Sword in a Stone", "Magic Pen", "Empty Teacup",
-    "Cursed Ring", "Music Box", "Red Umbrella", "Photograph", "Old Journal",
-    "Lantern", "Robot Cat"
+    "Cursed Ring", "Music Box", "Red Umbrella", "Old Journal",
+    "Silver Locket", "Typewriter", "Lantern"
   ];
 
   const emotions = [
@@ -87,6 +143,11 @@
     document.getElementById("genre").textContent = randomItem(genres);
     document.getElementById("object").textContent = randomItem(objects);
     document.getElementById("emotion").textContent = randomItem(emotions);
+    
+    const box = document.getElementById("resultsBox");
+    box.classList.remove("fade-in");
+    void box.offsetWidth; // reset animation
+    box.classList.add("fade-in");
   }
 </script>
 
