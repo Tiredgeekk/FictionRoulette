@@ -1,0 +1,29 @@
+import random
+
+genres = [
+    "Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror", "Comedy",
+    "Drama", "Historical", "Dystopian", "Fairy Tale", "Mythology",
+    "Adventure", "Cyberpunk", "Slice of Life", "Supernatural"
+]
+
+objects = [
+    "Pocket watch", "Letter", "Sword", "Umbrella", "Old photograph",
+    "Book of spells", "Teacup", "Key", "Lantern", "Feather",
+    "Robot", "Mask", "Necklace", "Broken phone", "Crown"
+]
+
+emotions = [
+    "Joy", "Fear", "Anger", "Jealousy", "Hope", "Nostalgia",
+    "Guilt", "Wonder", "Despair", "Curiosity", "Relief",
+    "Regret", "Awe", "Loneliness", "Excitement"
+]
+
+def flash_fiction_roulette():
+    genre = random.choice(genres)
+    obj = random.choice(objects)
+    emotion = random.choice(emotions)
+    print(f"\n🎲 Genre: {genre}\n🪄 Object: {obj}\n💖 Emotion: {emotion}\n")
+
+while True:
+    input("Press Enter to roll a new combo (or Ctrl+C to quit)...")
+    flash_fiction_roulette()
