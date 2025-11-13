@@ -1,29 +1,94 @@
-import random
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flash Fiction Roulette 🎲</title>
+<style>
+  body {
+    background-color: #faf5ff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #2d2d2d;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .results {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    transition: all 0.3s ease;
+  }
+  button {
+    background-color: #8b5cf6;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #7c3aed;
+  }
+  p {
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+  }
+</style>
+</head>
+<body>
 
-genres = [
-    "Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror", "Comedy",
-    "Drama", "Historical", "Dystopian", "Fairy Tale", "Mythology",
-    "Adventure", "Cyberpunk", "Slice of Life", "Supernatural"
-]
+<h1>Flash Fiction Roulette 🎲</h1>
+<div class="results">
+  <p><strong>Genre:</strong> <span id="genre">—</span></p>
+  <p><strong>Object:</strong> <span id="object">—</span></p>
+  <p><strong>Emotion:</strong> <span id="emotion">—</span></p>
+</div>
+<button onclick="generate()">Roll!</button>
 
-objects = [
-    "Pocket watch", "Letter", "Sword", "Umbrella", "Old photograph",
-    "Book of spells", "Teacup", "Key", "Lantern", "Feather",
-    "Robot", "Mask", "Necklace", "Broken phone", "Crown"
-]
+<script>
+  const genres = [
+    "Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror",
+    "Comedy", "Historical", "Slice of Life", "Adventure", "Dystopian",
+    "Magical Realism", "Mythology", "Cyberpunk", "Fairy Tale", "Drama"
+  ];
 
-emotions = [
-    "Joy", "Fear", "Anger", "Jealousy", "Hope", "Nostalgia",
-    "Guilt", "Wonder", "Despair", "Curiosity", "Relief",
-    "Regret", "Awe", "Loneliness", "Excitement"
-]
+  const objects = [
+    "Broken Clock", "Lost Letter", "Crystal Ball", "Map with No North",
+    "Pocket Watch", "Sword in a Stone", "Magic Pen", "Empty Teacup",
+    "Cursed Ring", "Music Box", "Red Umbrella", "Photograph", "Old Journal",
+    "Lantern", "Robot Cat"
+  ];
 
-def flash_fiction_roulette():
-    genre = random.choice(genres)
-    obj = random.choice(objects)
-    emotion = random.choice(emotions)
-    print(f"\n🎲 Genre: {genre}\n🪄 Object: {obj}\n💖 Emotion: {emotion}\n")
+  const emotions = [
+    "Joy", "Fear", "Anger", "Nostalgia", "Guilt", "Awe", "Desperation",
+    "Hope", "Jealousy", "Peace", "Loneliness", "Wonder", "Regret", "Amusement",
+    "Suspicion"
+  ];
 
-while True:
-    input("Press Enter to roll a new combo (or Ctrl+C to quit)...")
-    flash_fiction_roulette()
+  function randomItem(list) {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
+  function generate() {
+    document.getElementById("genre").textContent = randomItem(genres);
+    document.getElementById("object").textContent = randomItem(objects);
+    document.getElementById("emotion").textContent = randomItem(emotions);
+  }
+</script>
+
+</body>
+</html>
