@@ -3,102 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flash Fiction Roulette</title>
+<title>Flash Fiction Roulette 📚</title>
 <style>
   body {
-    background-color: #4b0f1e; /* deep burgundy */
-    color: #f5f5f5; /* white */
-    font-family: "Times New Roman", serif;
+    background-color: #f9f6f4;
+    font-family: 'Georgia', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 0;
+    color: #3b1f2b;
   }
 
   h1 {
-    color: #c0c0c0; /* silver */
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
+    font-size: 2.4rem;
+    color: #6b0f1a;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px #b6b6b6;
   }
 
-  .container {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 2px solid #c0c0c0;
-    border-radius: 15px;
-    padding: 2rem;
+  .subtitle {
+    font-size: 1rem;
+    color: #7c7c7c;
+    margin-bottom: 1.5rem;
+  }
+
+  .results {
+    background: #fff;
+    border: 2px solid #b7b7b7;
+    padding: 1.5rem 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 15px rgba(107, 15, 26, 0.2);
     text-align: center;
-    width: 90%;
-    max-width: 500px;
+    width: 85%;
+    max-width: 450px;
+    transition: all 0.3s ease;
+    position: relative;
   }
 
-  .result {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+  .results::before {
+    content: "✦";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #6b0f1a;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 0.6rem 0;
+  }
+
+  strong {
+    color: #6b0f1a;
   }
 
   button {
-    background-color: #c0c0c0;
-    color: #4b0f1e;
-    font-family: "Times New Roman", serif;
-    font-size: 1.2rem;
-    padding: 0.6rem 1.5rem;
+    background-color: #6b0f1a;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    padding: 0.8rem 1.8rem;
+    border-radius: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: 0.2s;
+    margin-top: 1.5rem;
+    box-shadow: 0 3px 10px rgba(107, 15, 26, 0.3);
+    transition: all 0.3s ease;
   }
 
   button:hover {
-    background-color: #ffffff;
+    background-color: #8c2234;
+    transform: translateY(-2px);
+  }
+
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.98);}
+    to {opacity: 1; transform: scale(1);}
   }
 
   footer {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    color: #999;
     font-size: 0.9rem;
-    color: #c0c0c0;
+    font-style: italic;
   }
 </style>
 </head>
 <body>
 
-  <h1>Flash Fiction Roulette</h1>
+<h1>Flash Fiction Roulette 📚</h1>
+<p class="subtitle">Write your story before the clock runs out!</p>
 
-  <div class="container">
-    <p class="result" id="genre">Genre: —</p>
-    <p class="result" id="object">Object: —</p>
-    <p class="result" id="emotion">Emotion: —</p>
-    <button onclick="rollAll()">🎲 Roll!</button>
-  </div>
+<div class="results" id="resultsBox">
+  <p><strong>Genre:</strong> <span id="genre">—</span></p>
+  <p><strong>Object:</strong> <span id="object">—</span></p>
+  <p><strong>Emotion:</strong> <span id="emotion">—</span></p>
+</div>
 
-  <footer>3 minutes. 1 story. Go.</footer>
+<button onclick="generate()">🎲 Roll Prompts</button>
+
+<footer>Lit Club Edition ✧</footer>
 
 <script>
   const genres = [
-    "Fantasy", "Horror", "Romance", "Mystery", "Sci-Fi",
-    "Comedy", "Drama", "Historical", "Thriller", "Fairy Tale"
+    "Fantasy", "Sci-Fi", "Romance", "Mystery", "Horror",
+    "Comedy", "Historical", "Slice of Life", "Adventure", "Dystopian",
+    "Mythology", "Cyberpunk", "Fairy Tale", "Drama", "Gothic"
   ];
 
   const objects = [
-    "Broken mirror", "Old letter", "Pocket watch", "Mysterious key",
-    "Candle", "Book of spells", "Photograph", "Map", "Sword", "Teacup"
+    "Broken Clock", "Lost Letter", "Crystal Ball", "Map with No North",
+    "Pocket Watch", "Sword in a Stone", "Magic Pen", "Empty Teacup",
+    "Cursed Ring", "Music Box", "Red Umbrella", "Old Journal",
+    "Silver Locket", "Typewriter", "Lantern"
   ];
 
   const emotions = [
-    "Joy", "Fear", "Longing", "Anger", "Confusion",
-    "Hope", "Jealousy", "Grief", "Awe", "Nostalgia"
+    "Joy", "Fear", "Anger", "Nostalgia", "Guilt", "Awe", "Desperation",
+    "Hope", "Jealousy", "Peace", "Loneliness", "Wonder", "Regret", "Amusement",
+    "Suspicion"
   ];
 
-  function roll(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+  function randomItem(list) {
+    return list[Math.floor(Math.random() * list.length)];
   }
 
-  function rollAll() {
-    document.getElementById("genre").textContent = "Genre: " + roll(genres);
-    document.getElementById("object").textContent = "Object: " + roll(objects);
-    document.getElementById("emotion").textContent = "Emotion: " + roll(emotions);
+  function generate() {
+    document.getElementById("genre").textContent = randomItem(genres);
+    document.getElementById("object").textContent = randomItem(objects);
+    document.getElementById("emotion").textContent = randomItem(emotions);
+    
+    const box = document.getElementById("resultsBox");
+    box.classList.remove("fade-in");
+    void box.offsetWidth; // reset animation
+    box.classList.add("fade-in");
   }
 </script>
 
